@@ -1,12 +1,22 @@
 import "dotenv/config";
+import cors from "cors";
 import express from "express";
 import { connectDB } from "./src/config/db.js";
+import auth from "./src/routes/auth.routes.js";
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL,
+    }),
+);
+
 app.use(express.json());
+
+app.use("/api/auth", auth);
 
 app.get("/api/health", (req, res) => {
     res.status(200).json({
