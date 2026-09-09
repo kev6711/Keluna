@@ -1,8 +1,11 @@
+import { Route, Routes } from "react-router-dom";
+import Register from "./pages/Register";
+
 function App() {
     return (
-        <main>
-            <h1>Keluna</h1>
-        </main>
+        <Routes>
+            <Route path='/register' element={<Register />} />
+        </Routes>
     );
 }
 

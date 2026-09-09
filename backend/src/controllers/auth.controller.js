@@ -3,10 +3,10 @@ import User from "../models/user.model.js";
 
 export const register = async (req, res) => {
     try {
-        const { email, password, confirmedPassword, acceptTerms } = req.body;
+        const { firstName, email, password, confirmPassword, acceptTerms } = req.body;
 
         // Vérification des champs
-        if (!email || !password || !confirmedPassword) {
+        if (!firstName || !email || !password || !confirmPassword) {
             return res.status(400).json({
                 message: "Tous les champs sont obligatoires.",
             });
@@ -30,7 +30,7 @@ export const register = async (req, res) => {
         }
 
         // Confirmation du mot de passe
-        if (password !== confirmedPassword) {
+        if (password !== confirmPassword) {
             return res.status(400).json({
                 message: "Les mots de passe ne correspondent pas.",
             });
@@ -57,6 +57,7 @@ export const register = async (req, res) => {
 
         // Création de l'utilisateur
         const user = await User.create({
+            firstName: firstName.trim(),
             email: normalizedEmail,
             password: hashedPassword,
         });
@@ -65,6 +66,7 @@ export const register = async (req, res) => {
             message: "Compte créé avec succès.",
             user: {
                 id: user._id,
+                firstName: user.firstName,
                 email: user.email,
             },
         });
