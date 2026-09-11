@@ -1,15 +1,21 @@
 const MacroCard = ({ icon, name, current, target, unit }) => {
+    const percentage = Math.round((current / target) * 100);
+    const progressWidth = Math.min(percentage, 100);
+
     return (
         <article className='macro'>
-            {icon}
+            <div className='macro__icon'>{icon}</div>
             <div className='macro__details'>
-                <p>{name}</p>
+                <h3>{name}</h3>
                 <p>
-                    {current} / {target} {unit}
+                    <span className='macro__details--current'>{current}</span>/ {target} {unit}
                 </p>
 
-                <div className='macro__progress'>
-                    <span>{Math.round((current / target) * 100)}%</span>
+                <div className='macro__progress-wrapper'>
+                    <div className='macro__progress'>
+                        <div className='macro__progress--bar' style={{ width: `${progressWidth}%` }}></div>
+                    </div>
+                    <span className='macro__progress--percentage'>{percentage}%</span>
                 </div>
             </div>
         </article>

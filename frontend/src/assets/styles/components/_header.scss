@@ -1,0 +1,160 @@
+@use "../config/variables" as *;
+@use "../config/mixins" as *;
+
+.header {
+    position: relative;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-color;
+    background: $white-color;
+
+    @include desktop {
+        grid-area: header;
+    }
+
+    &__logo {
+        img {
+            height: 50px;
+
+            @include desktop {
+                height: 60px;
+            }
+        }
+        h1 {
+            display: none;
+        }
+    }
+
+    &__burger {
+        position: absolute;
+        right: $spacing-md;
+        z-index: 2;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: transform $transition-duration $transition-ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        &--open {
+            transform: scale(0.95);
+        }
+
+        @include desktop {
+            display: none;
+        }
+    }
+
+    &__nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        background: $primary-color;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-0.5rem);
+        transition:
+            opacity $transition-duration $transition-ease,
+            transform $transition-duration $transition-ease,
+            visibility $transition-duration $transition-ease;
+
+        &--open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        ul {
+            @include flex-column;
+            align-items: center;
+            gap: $spacing-lg;
+            margin: 0;
+            padding: $spacing-xl 0;
+        }
+
+        @include desktop {
+            position: static;
+            width: auto;
+            background: transparent;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+
+            ul {
+                flex-direction: row;
+                padding: 0;
+            }
+        }
+    }
+
+    &__link {
+        display: inline-block;
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-sm;
+        background-color: transparent;
+        color: $white-color;
+        text-decoration: none;
+        transition:
+            transform $transition-duration $transition-ease,
+            background-color $transition-duration $transition-ease,
+            color $transition-duration $transition-ease;
+
+        &:hover {
+            background-color: $white-color;
+            color: $primary-color;
+            transform: scale(1.05);
+        }
+
+        &--active {
+            background-color: $white-color;
+            color: $primary-color;
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+
+        @include desktop {
+            color: $main-text-color;
+
+            &:hover {
+                background-color: $primary-color;
+                color: $white-color;
+                transform: scale(1.05);
+            }
+
+            &.header__link--active {
+                background-color: $primary-color;
+                color: $white-color;
+            }
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+    }
+
+    &__nav:has(.header__link:not(.header__link--active):hover) {
+        .header__link--active {
+            background-color: transparent;
+            color: $white-color;
+        }
+    }
+
+    @include desktop {
+        &__nav:has(.header__link:not(.header__link--active):hover) {
+            .header__link--active {
+                background-color: transparent;
+                color: $main-text-color;
+            }
+        }
+    }
+}

@@ -1,0 +1,107 @@
+@use "./variables" as *;
+
+// ---------- TYPOGRAPHY ---------- //
+
+@mixin secondary-text {
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+// Legends, metadata
+@mixin caption {
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+// ---------- FLEX ---------- //
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// ---------- BUTTON ---------- //
+
+@mixin button {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: $spacing-md;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+@mixin button-primary {
+    @include button;
+    background: $primary-color;
+    color: $white-color;
+}
+
+@mixin button-warning {
+    @include button;
+    background: $warning-color;
+    color: $white-color;
+}
+
+@mixin button-danger {
+    @include button;
+    background: $danger-color;
+    color: $white-color;
+}
+
+@mixin button-secondary {
+    @include button;
+    background: $main-background-color;
+    color: $main-text-color;
+}
+
+// ---------- LINK ---------- //
+
+@mixin underline-link {
+    text-decoration: underline;
+    color: $primary-color;
+    transition: font-weight $transition-duration $transition-ease;
+
+    &:hover {
+        color: $secondary-green-color;
+        font-weight: 700;
+    }
+
+    &:visited {
+        color: $primary-color;
+    }
+}
+
+// ---------- CARD ---------- //
+
+@mixin card {
+    background: transparent;
+    border: 1px solid $border-color;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+}
+
+// ---------- RESPONSIVE ---------- //
+
+@mixin tablet {
+    @media (min-width: $tablet-breakpoint) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop-breakpoint) {
+        @content;
+    }
+}

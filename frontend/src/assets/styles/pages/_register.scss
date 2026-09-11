@@ -1,0 +1,187 @@
+@use "../config/variables" as *;
+@use "../config/mixins" as *;
+
+.register-page {
+    min-height: 100vh;
+    @include flex-column;
+
+    @include desktop {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto 1fr;
+        grid-template-areas:
+            "header header"
+            "visual content"
+            "visual footer";
+    }
+}
+
+.register {
+    @include flex-column;
+    align-items: center;
+    padding: $spacing-lg $spacing-2xl;
+
+    @include tablet {
+        padding: $spacing-lg 0 0;
+    }
+
+    @include desktop {
+        display: contents;
+    }
+
+    &__visual {
+        display: none;
+
+        @include tablet {
+            display: block;
+            width: 100%;
+        }
+
+        @include desktop {
+            grid-area: visual;
+            margin-top: $spacing-2xl;
+            @include flex-column;
+            align-items: center;
+        }
+
+        h2 {
+            color: $primary-color;
+            text-align: center;
+
+            @include desktop {
+                margin: $spacing-2xl 0;
+            }
+        }
+
+        .macros {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: $spacing-md;
+
+            @include desktop {
+                @include flex-column;
+                width: 100%;
+                max-width: $content-max-width;
+                gap: $spacing-xl;
+            }
+        }
+    }
+
+    &__illustration {
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+    }
+
+    &__content {
+        width: 100%;
+        border-bottom: 1px solid $border-color;
+        padding-bottom: $spacing-lg;
+
+        @include tablet {
+            @include flex-column;
+            align-items: center;
+            background: $white-color;
+            padding-top: $spacing-lg;
+        }
+
+        @include desktop {
+            grid-area: content;
+            padding-top: $spacing-2xl;
+        }
+
+        .form {
+            @include flex-column;
+            gap: $spacing-xl;
+            margin-top: $spacing-2xl;
+            max-width: $content-max-width;
+
+            &__group {
+                @include flex-column;
+                gap: $spacing-xs;
+
+                label {
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                }
+            }
+
+            &__input-wrapper {
+                position: relative;
+
+                svg {
+                    position: absolute;
+                    top: 50%;
+                    left: $spacing-md;
+                    transform: translateY(-50%);
+                    color: $secondary-text-color;
+                    // pointer-events: none;
+                }
+
+                input {
+                    width: 100%;
+                    height: $input-height;
+                    padding: 0 $spacing-md 0 3rem;
+                    border: 1px solid $border-color;
+                    border-radius: $radius-sm;
+                    color: $secondary-text-color;
+                    font-family: Inter;
+
+                    &:focus {
+                        outline: none;
+                        border: 2px solid $primary-color;
+                    }
+                }
+            }
+
+            &__password-toggle {
+                position: absolute;
+                z-index: 100;
+                top: 50%;
+                right: 3rem;
+                padding: 0;
+                background: none;
+                border: none;
+                color: $secondary-text-color;
+                cursor: pointer;
+            }
+
+            &__terms {
+                display: flex;
+                align-items: center;
+                gap: $spacing-sm;
+                font-size: 0.75rem;
+
+                a {
+                    display: inline-block;
+                    font-size: 0.75rem;
+                    @include underline-link;
+                }
+            }
+
+            &__submit {
+                margin: $spacing-xl 0;
+                @include button-primary;
+            }
+        }
+    }
+}
+
+.footer {
+    padding: $spacing-lg 0;
+    @include flex-column;
+    align-items: center;
+    flex: 1;
+
+    @include tablet {
+        background: $white-color;
+    }
+
+    @include desktop {
+        grid-area: footer;
+    }
+
+    a {
+        @include underline-link;
+    }
+}

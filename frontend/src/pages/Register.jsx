@@ -1,22 +1,26 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import { registerUser } from "../services/auth.service";
 import MacroCard from "../components/MacroCard";
 import { Droplet, Eye, EyeOff, Flame, Lock, Mail, Sprout, User, Wheat } from "lucide-react";
-import logo from "../assets/images/logo.png";
 import salad from "../assets/images/salade.png";
+import Header from "../components/Header";
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [firstName, setFirstName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [acceptTerms, setAcceptTerms] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [acceptTerms, setAcceptTerms] = useState(false);
+
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [apiError, setApiError] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
 
     const validateForm = () => {
         const newErrors = {};
@@ -57,7 +61,6 @@ const Register = () => {
 
         setIsLoading(true);
         setApiError("");
-        setSuccessMessage("");
 
         try {
             const data = await registerUser({
@@ -67,8 +70,11 @@ const Register = () => {
                 confirmPassword,
                 acceptTerms,
             });
-
-            setSuccessMessage(data.message);
+            navigate("/login", {
+                state: {
+                    successMessage: data.message,
+                },
+            });
         } catch (error) {
             setApiError(error.response?.data?.message || "Impossible de créer le compte. Veuillez réessayer.");
         } finally {
@@ -77,20 +83,8 @@ const Register = () => {
     };
 
     return (
-        <>
-            <header className='header'>
-                <div className='header__logo'>
-                    <img src={logo} alt='Logo Keluna' />
-                    <h1>KELUNA</h1>
-                </div>
-                <nav className='header__nav'>
-                    <ul>
-                        <li>Connexion</li>
-                        <li>Créer un compte</li>
-                    </ul>
-                </nav>
-            </header>
-
+        <div className='register-page'>
+            <Header />
             <main className='register'>
                 <section className='register__visual'>
                     <img className='register__illustration' src={salad} alt="Bol composé d'aliments frais" />
@@ -121,7 +115,7 @@ const Register = () => {
                         <MacroCard
                             icon={<Droplet size={20} aria-hidden='true' />}
                             name='Lipides'
-                            current={50}
+                            current={35}
                             target={70}
                             unit='g'
                         />
@@ -255,17 +249,15 @@ const Register = () => {
                         <button className='form__submit' type='submit' disabled={isLoading}>
                             {isLoading ? "En cours de création" : "Créer mon compte"}
                         </button>
-                        {successMessage && <p className='form__success'>{successMessage}</p>}
                         {apiError && <p className='form__error'>{apiError}</p>}
                     </form>
                 </section>
             </main>
-
             <footer className='footer'>
                 <p>Déjà un compte ?</p>
-                <a href='/'>Se connecter</a>
+                <Link to='/login'>Se connecter</Link>
             </footer>
-        </>
+        </div>
     );
 };
 

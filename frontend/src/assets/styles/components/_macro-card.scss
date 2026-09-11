@@ -1,0 +1,70 @@
+@use "../config/variables" as *;
+@use "../config/mixins" as *;
+
+.macro {
+    @include card();
+
+    @include desktop {
+        display: grid;
+        grid-template-columns: 20% 80%;
+        align-items: center;
+        border: none;
+    }
+
+    &__icon {
+        @include desktop {
+            @include flex-center;
+            width: $macro-icon-container-size;
+            height: $macro-icon-container-size;
+            color: $primary-color;
+            background: $primary-transparent-color;
+            border-radius: $radius-round;
+        }
+
+        svg {
+            display: none;
+
+            @include desktop {
+                display: block;
+                width: $macro-icon-size;
+                height: $macro-icon-size;
+            }
+        }
+    }
+
+    &__details {
+        @include flex-column;
+        gap: $spacing-sm;
+
+        h3,
+        p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        &--current {
+            font-weight: 700;
+        }
+    }
+
+    &__progress-wrapper {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+    }
+
+    &__progress {
+        width: 100%;
+        height: 8px;
+        background: $border-color;
+        border-radius: $radius-sm &--bar {
+            height: 100%;
+            background: $primary-color;
+            border-radius: inherit;
+        }
+        &--percentage {
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+    }
+}
