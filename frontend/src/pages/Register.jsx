@@ -134,7 +134,7 @@ const Register = () => {
                             <div className='form__input-wrapper'>
                                 <User size={20} aria-hidden='true' />
                                 <input
-                                    className='form__input'
+                                    className={`form__input ${errors.firstName ? "form__input--error" : ""}`}
                                     type='text'
                                     name='firstName'
                                     id='firstName'
@@ -142,7 +142,7 @@ const Register = () => {
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
-                                {errors.firstName && <p className='form__error'>{errors.firstName}</p>}
+                                {errors.firstName && <p className='error'>{errors.firstName}</p>}
                             </div>
                         </div>
 
@@ -153,7 +153,7 @@ const Register = () => {
                             <div className='form__input-wrapper'>
                                 <Mail size={20} aria-hidden='true' />
                                 <input
-                                    className='form__input'
+                                    className={`form__input ${errors.email ? "form__input--error" : ""}`}
                                     type='email'
                                     name='email'
                                     id='email'
@@ -161,7 +161,7 @@ const Register = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                {errors.email && <p className='form__error'>{errors.email}</p>}
+                                {errors.email && <p className='error'>{errors.email}</p>}
                             </div>
                         </div>
 
@@ -172,7 +172,7 @@ const Register = () => {
                             <div className='form__input-wrapper'>
                                 <Lock size={20} aria-hidden='true' />
                                 <input
-                                    className='form__input'
+                                    className={`form__input ${errors.password ? "form__input--error" : ""}`}
                                     type={showPassword ? "text" : "password"}
                                     name='password'
                                     id='password'
@@ -192,7 +192,7 @@ const Register = () => {
                                         <EyeOff size={20} aria-hidden='true' />
                                     )}
                                 </button>
-                                {errors.password && <p className='form__error'>{errors.password}</p>}
+                                {errors.password && <p className='error'>{errors.password}</p>}
                             </div>
                         </div>
 
@@ -203,7 +203,7 @@ const Register = () => {
                             <div className='form__input-wrapper'>
                                 <Lock size={20} aria-hidden='true' />
                                 <input
-                                    className='form__input'
+                                    className={`form__input ${errors.confirmPassword ? "form__input--error" : ""}`}
                                     type={showConfirmPassword ? "text" : "password"}
                                     name='confirmPassword'
                                     id='confirmPassword'
@@ -227,12 +227,13 @@ const Register = () => {
                                         <EyeOff size={20} aria-hidden='true' />
                                     )}
                                 </button>
-                                {errors.confirmPassword && <p className='form__error'>{errors.confirmPassword}</p>}
+                                {errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
                             </div>
                         </div>
 
                         <div className='form__terms'>
                             <input
+                                className={`${errors.acceptTerms ? "form__terms--error" : ""}`}
                                 type='checkbox'
                                 name='acceptTerms'
                                 id='acceptTerms'
@@ -243,11 +244,11 @@ const Register = () => {
                                 J'accepte les <a href='/'>conditions d'utilisation</a> et la{" "}
                                 <a href='/'>politique de confidentialité</a>.
                             </label>
-                            {errors.acceptTerms && <p className='form__error'>{errors.acceptTerms}</p>}
+                            {errors.acceptTerms && <p className='error'>{errors.acceptTerms}</p>}
                         </div>
 
                         <button className='form__submit' type='submit' disabled={isLoading}>
-                            {isLoading ? "En cours de création" : "Créer mon compte"}
+                            {isLoading ? "En cours de création ..." : "Créer mon compte"}
                         </button>
                         {apiError && <p className='form__error'>{apiError}</p>}
                     </form>

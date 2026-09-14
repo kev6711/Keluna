@@ -131,6 +131,14 @@
                         outline: none;
                         border: 2px solid $primary-color;
                     }
+
+                    &.form__input--error {
+                        border: 2px solid $danger-color;
+
+                        &:focus {
+                            border: 2px solid $danger-color;
+                        }
+                    }
                 }
             }
 
@@ -147,21 +155,40 @@
             }
 
             &__terms {
+                position: relative;
                 display: flex;
                 align-items: center;
                 gap: $spacing-sm;
                 font-size: 0.75rem;
+
+                input.form__terms--error {
+                    outline: 2px solid $danger-color;
+                    outline-offset: 2px;
+                }
 
                 a {
                     display: inline-block;
                     font-size: 0.75rem;
                     @include underline-link;
                 }
+
+                p.error {
+                    position: absolute;
+                    top: 10px;
+                }
             }
 
             &__submit {
                 margin: $spacing-xl 0;
                 @include button-primary;
+            }
+
+            .error {
+                position: absolute;
+                top: 30px;
+                margin-top: $spacing-lg;
+                font-size: 0.8rem;
+                color: $danger-color;
             }
         }
     }
