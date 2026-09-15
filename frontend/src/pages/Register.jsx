@@ -5,7 +5,7 @@ import { registerUser } from "../services/auth.service";
 import MacroCard from "../components/MacroCard";
 import { Droplet, Eye, EyeOff, Flame, Lock, Mail, Sprout, User, Wheat } from "lucide-react";
 import salad from "../assets/images/salade.png";
-import Header from "../components/Header";
+import AuthLayout from "../layouts/AuthLayout";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -83,10 +83,9 @@ const Register = () => {
     };
 
     return (
-        <div className='register-page'>
-            <Header />
-            <main className='register'>
-                <section className='register__visual'>
+        <AuthLayout
+            visual={
+                <>
                     <img className='register__illustration' src={salad} alt="Bol composé d'aliments frais" />
                     <h2>Atteignez vos objectifs avec Keluna</h2>
 
@@ -120,10 +119,11 @@ const Register = () => {
                             unit='g'
                         />
                     </div>
-                </section>
-
-                <section className='register__content'>
-                    <h2>Créer votre compte</h2>
+                </>
+            }
+            content={
+                <>
+                    <h2>Créez votre compte</h2>
                     <p>Commencez votre suivi nutritionnel personnalisé avec Keluna.</p>
 
                     <form className='form' onSubmit={handleSubmit}>
@@ -252,13 +252,15 @@ const Register = () => {
                         </button>
                         {apiError && <p className='form__error'>{apiError}</p>}
                     </form>
-                </section>
-            </main>
-            <footer className='footer'>
-                <p>Déjà un compte ?</p>
-                <Link to='/login'>Se connecter</Link>
-            </footer>
-        </div>
+                </>
+            }
+            footer={
+                <>
+                    <p>Déjà un compte ?</p>
+                    <Link to='/login'>Se connecter</Link>
+                </>
+            }
+        />
     );
 };
 

@@ -1,4 +1,7 @@
 @use "./base/global";
 @use "./components/header";
 @use "./components/macro-card";
+@use "./components/toast.scss";
+@use "./layouts/auth.scss";
 @use "./pages/register";
+@use "./pages/login";

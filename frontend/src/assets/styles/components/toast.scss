@@ -1,0 +1,34 @@
+@use "../config/variables" as *;
+@use "../config/mixins" as *;
+
+.toast {
+    @include flex-center;
+    gap: $spacing-sm;
+    position: fixed;
+    top: $spacing-lg;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: $spacing-md $spacing-lg;
+    background: #2fa66a36;
+    border-radius: $radius-md;
+
+    animation: toast-disappear 3.5s ease forwards;
+
+    &--success {
+        color: $primary-color;
+    }
+}
+
+@keyframes toast-disappear {
+    0%,
+    85% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -10px);
+    }
+}
