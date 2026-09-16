@@ -3,6 +3,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 function App() {
     return (
@@ -14,6 +15,14 @@ function App() {
                 element={
                     <ProtectedRoute>
                         <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path='/profile'
+                element={
+                    <ProtectedRoute>
+                        <Profile />
                     </ProtectedRoute>
                 }
             />

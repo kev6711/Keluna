@@ -119,6 +119,7 @@ export const login = async (req, res) => {
                 id: user._id,
                 firstName: user.firstName,
                 email: user.email,
+                hasProfile: Boolean(user.profile),
             },
         });
     } catch (error) {

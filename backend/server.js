@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import { connectDB } from "./src/config/db.js";
 import auth from "./src/routes/auth.routes.js";
+import userRoutes from "./src/routes/user.routes.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api/auth", auth);
+app.use("/api/users", userRoutes);
 
 app.get("/api/health", (req, res) => {
     res.status(200).json({

@@ -57,7 +57,11 @@ const Login = () => {
 
             localStorage.setItem("token", data.token);
 
-            navigate("/dashboard");
+            if (data.user.hasProfile) {
+                navigate("/dashboard");
+            } else {
+                navigate("/profile");
+            }
         } catch (error) {
             setApiError(error.response?.data?.message || "Impossible de se connecter. Veuillez réessayer.");
         } finally {

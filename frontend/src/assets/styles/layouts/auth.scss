@@ -155,6 +155,11 @@
                 gap: $spacing-sm;
                 font-size: 0.75rem;
 
+                input[type="checkbox"] {
+                    cursor: pointer;
+                    accent-color: $primary-color;
+                }
+
                 input.form__terms--error {
                     outline: 2px solid $danger-color;
                     outline-offset: 2px;
@@ -164,6 +169,11 @@
                     display: inline-block;
                     font-size: 0.75rem;
                     @include underline-link;
+                    transition: none;
+
+                    &:hover {
+                        font-weight: normal;
+                    }
                 }
 
                 p.error {
