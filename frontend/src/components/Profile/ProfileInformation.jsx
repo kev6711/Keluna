@@ -32,22 +32,22 @@ const ProfileInformation = ({ profileData, setProfileData, onNext, onBack }) => 
             if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < parsedBirthDate.getDate())) {
                 age--;
             }
-            if (age < 16) {
-                newErrors.birthDate = "Vous devez avoir au moins 16 ans pour utiliser Keluna.";
+            if (age < 18) {
+                newErrors.birthDate = "Vous devez avoir au moins 18 ans pour utiliser Keluna.";
             }
         }
 
         const height = Number(profileData.height);
         if (!profileData.height) {
             newErrors.height = "Veuillez renseigner votre taille.";
-        } else if (height < 100 || height > 250) {
+        } else if (Number.isNaN(height) || height < 100 || height > 250) {
             newErrors.height = "La taille doit être comprise entre 100 et 250 cm.";
         }
 
         const weight = Number(profileData.weight);
         if (!profileData.weight) {
             newErrors.weight = "Veuillez renseigner votre poids.";
-        } else if (weight < 30 || weight > 300) {
+        } else if (Number.isNaN(weight) || weight < 30 || weight > 300) {
             newErrors.weight = "Le poids doit être compris entre 30 et 300 kg.";
         }
 
@@ -77,7 +77,6 @@ const ProfileInformation = ({ profileData, setProfileData, onNext, onBack }) => 
                     >
                         Homme
                     </button>
-
                     <button
                         type='button'
                         className={`onboarding__choice ${profileData.gender === "female" ? "onboarding__choice--selected" : ""}`}
@@ -85,8 +84,8 @@ const ProfileInformation = ({ profileData, setProfileData, onNext, onBack }) => 
                     >
                         Femme
                     </button>
-                    {errors.gender && <p className='form__error'>{errors.gender}</p>}
                 </div>
+                {errors.gender && <p className='form__error'>{errors.gender}</p>}
             </div>
 
             <div className='onboarding__field'>
@@ -106,6 +105,9 @@ const ProfileInformation = ({ profileData, setProfileData, onNext, onBack }) => 
                 <input
                     id='height'
                     type='number'
+                    min='100'
+                    max='250'
+                    step='1'
                     placeholder='cm'
                     value={profileData.height}
                     onChange={(e) => handleChange("height", e.target.value)}
@@ -118,6 +120,9 @@ const ProfileInformation = ({ profileData, setProfileData, onNext, onBack }) => 
                 <input
                     id='weight'
                     type='number'
+                    min='30'
+                    max='300'
+                    step='0.1'
                     placeholder='kg'
                     value={profileData.weight}
                     onChange={(e) => handleChange("weight", e.target.value)}

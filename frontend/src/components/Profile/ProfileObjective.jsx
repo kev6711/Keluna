@@ -4,25 +4,25 @@ import { TrendingDown, Scale, TrendingUp } from "lucide-react";
 const objectives = [
     {
         value: "weight_loss",
-        label: "Perdre du poids",
+        label: "Perte de poids",
         description: "Déficit calorique",
         icon: TrendingDown,
     },
     {
         value: "maintenance",
-        label: "Maintenir mon poids",
+        label: "Maintien du poids",
         description: "Maintien des besoins",
         icon: Scale,
     },
     {
         value: "weight_gain",
-        label: "Prendre du poids",
-        description: "Surplus calorique",
+        label: "Prise de masse",
+        description: "Favoriser la prise de masse musculaire",
         icon: TrendingUp,
     },
 ];
 
-const ProfileObjective = ({ profileData, setProfileData, onNext, onBack }) => {
+const ProfileObjective = ({ profileData, setProfileData, onNext, onBack, isLoading, apiError }) => {
     const [error, setError] = useState("");
 
     const handleObjectiveChange = (value) => {
@@ -51,7 +51,6 @@ const ProfileObjective = ({ profileData, setProfileData, onNext, onBack }) => {
             <div className='onboarding__objective-list'>
                 {objectives.map((objective) => {
                     const Icon = objective.icon;
-
                     return (
                         <button
                             key={objective.value}
@@ -60,6 +59,7 @@ const ProfileObjective = ({ profileData, setProfileData, onNext, onBack }) => {
                                 profileData.objectiveType === objective.value ? "onboarding__objective--selected" : ""
                             }`}
                             onClick={() => handleObjectiveChange(objective.value)}
+                            aria-pressed={profileData.objectiveType === objective.value}
                         >
                             <Icon size={24} strokeWidth={2} aria-hidden='true' />
                             <span className='onboarding__objective-label'>{objective.label}</span>
@@ -74,10 +74,11 @@ const ProfileObjective = ({ profileData, setProfileData, onNext, onBack }) => {
                 <button type='button' onClick={onBack}>
                     Retour
                 </button>
-                <button type='button' onClick={handleNextStep}>
-                    Continuer
+                <button type='button' onClick={handleNextStep} disabled={isLoading}>
+                    {isLoading ? "Enregistrement..." : "Continuer"}
                 </button>
             </div>
+            {apiError && <p className='form__error'>{apiError}</p>}
         </section>
     );
 };

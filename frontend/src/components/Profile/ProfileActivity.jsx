@@ -62,7 +62,6 @@ const ProfileActivity = ({ profileData, setProfileData, onNext, onBack }) => {
             <div className='onboarding__activity-list'>
                 {activityLevels.map((activity) => {
                     const Icon = activity.icon;
-
                     return (
                         <button
                             key={activity.value}
@@ -71,6 +70,7 @@ const ProfileActivity = ({ profileData, setProfileData, onNext, onBack }) => {
                                 profileData.activityLevel === activity.value ? "onboarding__activity--selected" : ""
                             }`}
                             onClick={() => handleActivityChange(activity.value)}
+                            aria-pressed={profileData.activityLevel === activity.value}
                         >
                             <Icon size={24} strokeWidth={2} aria-hidden='true' />
                             <span className='onboarding__activity-label'>{activity.label}</span>

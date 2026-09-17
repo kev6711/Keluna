@@ -1,4 +1,7 @@
+import mongoose from "mongoose";
 import User from "../models/user.model.js";
+import { calculateNutritionGoals } from "../services/nutrition.service.js";
+import { createNutritionGoal } from "../services/nutritionGoal.service.js";
 
 export const createProfile = async (req, res) => {
     try {
@@ -29,9 +32,9 @@ export const createProfile = async (req, res) => {
         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < parsedBirthDate.getDate())) {
             age--;
         }
-        if (age < 16) {
+        if (age < 18) {
             return res.status(400).json({
-                message: "Vous devez avoir au moins 16 ans pour utiliser Keluna.",
+                message: "Vous devez avoir au moins 18 ans pour utiliser Keluna.",
             });
         }
 
@@ -75,20 +78,38 @@ export const createProfile = async (req, res) => {
             });
         }
 
-        user.profile = {
-            gender,
-            birthDate: parsedBirthDate,
-            height,
-            weight,
-            activityLevel,
-            objectiveType,
-        };
+        const session = await mongoose.startSession();
+        let nutritionGoals;
 
-        await user.save();
+        try {
+            await session.withTransaction(async () => {
+                user.profile = {
+                    gender,
+                    birthDate,
+                    height,
+                    weight,
+                    activityLevel,
+                    objectiveType,
+                };
+
+                nutritionGoals = calculateNutritionGoals(user.profile);
+
+                await user.save({ session });
+
+                await createNutritionGoal({
+                    userId: user._id,
+                    nutritionGoals,
+                    session,
+                });
+            });
+        } finally {
+            await session.endSession();
+        }
 
         return res.status(201).json({
             message: "Profil créé avec succès.",
             profile: user.profile,
+            nutritionGoals,
         });
     } catch (error) {
         console.error(error);
