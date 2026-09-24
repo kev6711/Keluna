@@ -1,0 +1,69 @@
+@use "../../config/variables" as *;
+@use "../../config/mixins" as *;
+
+.onboarding__welcome {
+    @include flex-column-center;
+
+    @include desktop {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto auto 1fr;
+        grid-template-areas:
+            "title image"
+            "description image"
+            "explanation image"
+            "button image";
+    }
+
+    &-title {
+        @include flex-center;
+        gap: $spacing-md;
+
+        @include desktop {
+            grid-area: title;
+        }
+
+        svg {
+            color: $secondary-green-color;
+        }
+    }
+
+    &-description {
+        @include desktop {
+            grid-area: description;
+        }
+    }
+
+    &-explanation {
+        @include desktop {
+            grid-area: explanation;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        margin: $spacing-lg auto 3rem;
+
+        @include desktop {
+            grid-area: image;
+            height: 400px;
+        }
+    }
+
+    .onboarding__actions {
+        width: 100%;
+        justify-content: center;
+
+        @include desktop {
+            grid-area: button;
+        }
+
+        &-begin {
+            @include button-primary;
+            width: 100%;
+            max-width: 550px;
+        }
+    }
+}

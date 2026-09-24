@@ -1,0 +1,115 @@
+@use "../../config/variables" as *;
+@use "../../config/mixins" as *;
+
+.onboarding__information {
+    @include flex-column-center;
+    width: 100%;
+    max-width: 750px;
+}
+
+.onboarding__form {
+    @include form;
+    width: 80%;
+    font-size: 0.875rem;
+
+    @include desktop {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        width: 100%;
+    }
+
+    .form__error {
+        color: $danger-color;
+        margin: 0;
+    }
+}
+
+.onboarding__field {
+    @include form-group;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    .onboarding__input--error {
+        border: 2px solid $danger-color;
+    }
+
+    &-input {
+        position: relative;
+
+        span {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 30px;
+            color: $secondary-text-color;
+        }
+    }
+
+    input {
+        @include form-input;
+        padding: 0 $spacing-md;
+    }
+
+    #birthDate {
+        text-transform: uppercase;
+        cursor: text;
+
+        &::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+        }
+    }
+}
+
+.onboarding__choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+
+    .onboarding__choice {
+        @include flex-center;
+        gap: $spacing-lg;
+        @include form-input;
+        padding: 0;
+        background: $white-color;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            border: 1px solid $primary-color;
+        }
+
+        &--selected {
+            background: $primary-transparent-color;
+        }
+    }
+}
+
+.onboarding__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: $spacing-md;
+    margin-top: 4rem;
+    width: 100%;
+
+    @include desktop {
+        justify-content: space-between;
+    }
+
+    &-back,
+    &-next {
+        width: 100%;
+        max-width: 230px;
+    }
+
+    &-back {
+        @include button-goback;
+    }
+
+    &-next {
+        @include button-primary;
+    }
+}

@@ -16,6 +16,10 @@
         grid-area: header;
     }
 
+    &__logout {
+        @include button-danger;
+    }
+
     &__logo {
         img {
             height: 50px;

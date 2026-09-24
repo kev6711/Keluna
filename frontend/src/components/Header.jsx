@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { Menu, X } from "lucide-react";
+import { logoutUser } from "../services/auth.service";
 
-const Header = () => {
+const Header = ({ variant = "default" }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logoutUser();
+        navigate("/login");
+    };
 
     return (
         <header className='header'>
@@ -14,34 +22,49 @@ const Header = () => {
                 </Link>
                 <h1>KELUNA</h1>
             </div>
-            <button
-                className={`header__burger ${isMenuOpen ? "header__burger--open" : ""}`}
-                type='button'
-                aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-            <nav className={`header__nav ${isMenuOpen ? "header__nav--open" : ""}`}>
-                <ul>
-                    <li>
-                        <NavLink
-                            to='/login'
-                            className={({ isActive }) => `header__link ${isActive ? "header__link--active" : ""}`}
-                        >
-                            Connexion
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to='/register'
-                            className={({ isActive }) => `header__link ${isActive ? "header__link--active" : ""}`}
-                        >
-                            Créer un compte
-                        </NavLink>
-                    </li>
-                </ul>
-            </nav>
+
+            {variant === "onboarding" ? (
+                <button type='button' className='header__logout' onClick={handleLogout}>
+                    Se déconnecter
+                </button>
+            ) : (
+                <>
+                    <button
+                        className={`header__burger ${isMenuOpen ? "header__burger--open" : ""}`}
+                        type='button'
+                        aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+
+                    <nav className={`header__nav ${isMenuOpen ? "header__nav--open" : ""}`}>
+                        <ul>
+                            <li>
+                                <NavLink
+                                    to='/login'
+                                    className={({ isActive }) =>
+                                        `header__link ${isActive ? "header__link--active" : ""}`
+                                    }
+                                >
+                                    Connexion
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink
+                                    to='/register'
+                                    className={({ isActive }) =>
+                                        `header__link ${isActive ? "header__link--active" : ""}`
+                                    }
+                                >
+                                    Créer un compte
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </>
+            )}
         </header>
     );
 };

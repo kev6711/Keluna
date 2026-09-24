@@ -1,0 +1,71 @@
+@use "../../config/variables" as *;
+@use "../../config/mixins" as *;
+
+.onboarding__activity {
+    @include flex-column-center;
+    width: 100%;
+    max-width: 1440px;
+
+    .onboarding__actions {
+        justify-content: space-between;
+    }
+
+    .form__error {
+        color: $danger-color;
+    }
+}
+
+.onboarding__activity-list {
+    @include flex-column-center;
+    gap: $spacing-sm;
+    width: 100%;
+    margin-top: $spacing-md;
+
+    @include tablet {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @include desktop {
+        grid-template-columns: repeat(5, 1fr);
+        gap: $spacing-md;
+    }
+}
+
+.selection-card.selection-card--activity {
+    @include tablet {
+        height: 100px;
+        grid-template-columns: 30% 70%;
+    }
+
+    @include desktop {
+        height: 250px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30% 30% 1fr;
+        grid-template-areas:
+            "icon"
+            "label"
+            "description";
+        padding: $spacing-sm;
+    }
+
+    .selection-card__icon {
+        @include tablet {
+            width: 40px;
+            height: 40px;
+        }
+
+        @include desktop {
+            width: 48px;
+            height: 48px;
+        }
+    }
+
+    .selection-card__label,
+    .selection-card__description {
+        @include desktop {
+            justify-self: center;
+            font-size: 1rem;
+        }
+    }
+}

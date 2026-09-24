@@ -61,7 +61,7 @@
             @include desktop {
                 @include flex-column;
                 width: 100%;
-                max-width: $content-max-width;
+                max-width: 600px;
                 gap: $spacing-xl;
             }
         }
@@ -88,7 +88,7 @@
             @include flex-column;
             gap: $spacing-xl;
             margin-top: $spacing-2xl;
-            max-width: $content-max-width;
+            max-width: 600px;
 
             &__group {
                 @include flex-column;
@@ -109,7 +109,7 @@
                     left: $spacing-md;
                     transform: translateY(-50%);
                     color: $secondary-text-color;
-                    // pointer-events: none;
+                    pointer-events: none;
                 }
 
                 input {

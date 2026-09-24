@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Armchair, Footprints, Bike, Dumbbell, Flame } from "lucide-react";
+import SelectionCard from "./SelectionCard";
 
 const activityLevels = [
     {
@@ -29,7 +30,7 @@ const activityLevels = [
     {
         value: "very_active",
         label: "Extrêmement actif",
-        description: "Athlète ou activité quotidienne très intense.",
+        description: "Activité quotidienne très intense.",
         icon: Flame,
     },
 ];
@@ -55,37 +56,30 @@ const ProfileActivity = ({ profileData, setProfileData, onNext, onBack }) => {
     };
 
     return (
-        <section className='onboarding__step'>
+        <section className='onboarding__activity'>
             <h2>Votre niveau d'activité</h2>
             <p>Sélectionnez le niveau qui correspond le mieux à votre activité physique habituelle.</p>
 
             <div className='onboarding__activity-list'>
-                {activityLevels.map((activity) => {
-                    const Icon = activity.icon;
-                    return (
-                        <button
-                            key={activity.value}
-                            type='button'
-                            className={`onboarding__activity ${
-                                profileData.activityLevel === activity.value ? "onboarding__activity--selected" : ""
-                            }`}
-                            onClick={() => handleActivityChange(activity.value)}
-                            aria-pressed={profileData.activityLevel === activity.value}
-                        >
-                            <Icon size={24} strokeWidth={2} aria-hidden='true' />
-                            <span className='onboarding__activity-label'>{activity.label}</span>
-                            <span className='onboarding__activity-description'>{activity.description}</span>
-                        </button>
-                    );
-                })}
+                {activityLevels.map((activity) => (
+                    <SelectionCard
+                        key={activity.value}
+                        variant='activity'
+                        icon={activity.icon}
+                        label={activity.label}
+                        description={activity.description}
+                        selected={profileData.activityLevel === activity.value}
+                        onClick={() => handleActivityChange(activity.value)}
+                    />
+                ))}
             </div>
 
             {error && <p className='form__error'>{error}</p>}
             <div className='onboarding__actions'>
-                <button type='button' onClick={onBack}>
+                <button className='onboarding__actions-back' type='button' onClick={onBack}>
                     Retour
                 </button>
-                <button type='button' onClick={handleNextStep}>
+                <button className='onboarding__actions-next' type='button' onClick={handleNextStep}>
                     Continuer
                 </button>
             </div>

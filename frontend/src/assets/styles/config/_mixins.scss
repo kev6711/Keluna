@@ -26,6 +26,47 @@
     align-items: center;
 }
 
+@mixin flex-column-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+// ---------- FORM ---------- //
+
+@mixin form {
+    @include flex-column;
+    gap: $spacing-xl;
+    margin-top: $spacing-2xl;
+}
+
+@mixin form-group {
+    @include flex-column;
+    gap: $spacing-xs;
+
+    label,
+    legend {
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+}
+
+@mixin form-input {
+    width: 100%;
+    height: $input-height;
+    padding: 0 $spacing-md 0 3rem;
+    border: 1px solid $border-color;
+    border-radius: $radius-sm;
+    color: $secondary-text-color;
+    font-family: Inter;
+
+    &:focus {
+        outline: none;
+        border: 2px solid $primary-color;
+    }
+}
+
 // ---------- BUTTON ---------- //
 
 @mixin button {
@@ -56,7 +97,7 @@
 
 @mixin button-danger {
     @include button;
-    background: $danger-color;
+    background: $danger-button-color;
     color: $white-color;
 }
 
@@ -64,6 +105,12 @@
     @include button;
     background: $main-background-color;
     color: $main-text-color;
+}
+
+@mixin button-goback {
+    @include button;
+    background: $secondary-text-color;
+    color: $white-color;
 }
 
 // ---------- LINK ---------- //

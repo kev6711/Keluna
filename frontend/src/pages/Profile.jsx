@@ -5,7 +5,6 @@ import ProfileInformation from "../components/Profile/ProfileInformation";
 import ProfileActivity from "../components/Profile/ProfileActivity";
 import ProfileObjective from "../components/Profile/ProfileObjective";
 import { createProfile } from "../services/user.service";
-import { CircleSmall } from "lucide-react";
 
 const Profile = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -51,17 +50,23 @@ const Profile = () => {
 
     return (
         <>
-            <Header />
+            <Header variant='onboarding' />
             <main className='onboarding'>
-                <div className='onboarding__steps'>
+                <section className='onboarding__steps'>
                     <div className='onboarding__steps--bullets'>
-                        <CircleSmall size={24} aria-hidden='true' />
-                        <CircleSmall size={24} aria-hidden='true' />
-                        <CircleSmall size={24} aria-hidden='true' />
-                        <CircleSmall size={24} aria-hidden='true' />
+                        <span className='onboarding__steps--bullet active'></span>
+                        <span className={`onboarding__steps--line ${currentStep >= 2 ? "active" : ""}`}></span>
+
+                        <span className={`onboarding__steps--bullet ${currentStep >= 2 ? "active" : ""}`}></span>
+                        <span className={`onboarding__steps--line ${currentStep >= 3 ? "active" : ""}`}></span>
+
+                        <span className={`onboarding__steps--bullet ${currentStep >= 3 ? "active" : ""}`}></span>
+                        <span className={`onboarding__steps--line ${currentStep >= 4 ? "active" : ""}`}></span>
+
+                        <span className={`onboarding__steps--bullet ${currentStep >= 4 ? "active" : ""}`}></span>
                     </div>
                     <p>Étape {currentStep} sur 4</p>
-                </div>
+                </section>
                 {currentStep === 1 && <ProfileWelcome onNext={handleNext} />}
                 {currentStep === 2 && (
                     <ProfileInformation

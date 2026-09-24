@@ -2,6 +2,12 @@
 @use "./components/header";
 @use "./components/macro-card";
 @use "./components/toast.scss";
+@use "../styles/components/Profile/profile-welcome";
+@use "../styles/components/Profile/profile-information";
+@use "../styles/components/Profile/profile-activity";
+@use "../styles/components/Profile/profile-objective";
+@use "../styles/components/Profile/selection-card";
 @use "./layouts/auth.scss";
 @use "./pages/register";
 @use "./pages/login";
+@use "./pages/profile";

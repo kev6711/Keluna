@@ -1,0 +1,44 @@
+@use "../config/variables" as *;
+@use "../config/mixins" as *;
+
+.onboarding {
+    @include flex-column-center;
+    padding: 0.75rem;
+    text-align: center;
+
+    &__steps {
+        margin-top: $spacing-md;
+
+        &--bullets {
+            @include flex-center;
+            color: $secondary-text-color;
+        }
+
+        &--bullet {
+            width: 24px;
+            height: 24px;
+            border: 1px solid $secondary-text-color;
+            border-radius: 100%;
+        }
+
+        &--bullet.active {
+            border-color: $primary-color;
+            background: $primary-color;
+        }
+
+        &--line {
+            display: inline-block;
+            background: $secondary-text-color;
+            height: 1px;
+            width: 4rem;
+        }
+
+        &--line.active {
+            background: $primary-color;
+        }
+
+        p {
+            margin: $spacing-xl auto;
+        }
+    }
+}

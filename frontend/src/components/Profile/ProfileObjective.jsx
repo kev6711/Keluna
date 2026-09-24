@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { TrendingDown, Scale, TrendingUp } from "lucide-react";
+import SelectionCard from "./SelectionCard";
 
 const objectives = [
     {
@@ -44,37 +45,35 @@ const ProfileObjective = ({ profileData, setProfileData, onNext, onBack, isLoadi
     };
 
     return (
-        <section className='onboarding__step'>
+        <section className='onboarding__objective'>
             <h2>Votre objectif</h2>
             <p>Quel est votre objectif principal ?</p>
 
             <div className='onboarding__objective-list'>
-                {objectives.map((objective) => {
-                    const Icon = objective.icon;
-                    return (
-                        <button
-                            key={objective.value}
-                            type='button'
-                            className={`onboarding__objective ${
-                                profileData.objectiveType === objective.value ? "onboarding__objective--selected" : ""
-                            }`}
-                            onClick={() => handleObjectiveChange(objective.value)}
-                            aria-pressed={profileData.objectiveType === objective.value}
-                        >
-                            <Icon size={24} strokeWidth={2} aria-hidden='true' />
-                            <span className='onboarding__objective-label'>{objective.label}</span>
-                            <span className='onboarding__objective-description'>{objective.description}</span>
-                        </button>
-                    );
-                })}
+                {objectives.map((objective) => (
+                    <SelectionCard
+                        key={objective.value}
+                        variant='objective'
+                        icon={objective.icon}
+                        label={objective.label}
+                        description={objective.description}
+                        selected={profileData.objectiveType === objective.value}
+                        onClick={() => handleObjectiveChange(objective.value)}
+                    />
+                ))}
             </div>
 
             {error && <p className='form__error'>{error}</p>}
             <div className='onboarding__actions'>
-                <button type='button' onClick={onBack}>
+                <button className='onboarding__actions-back' type='button' onClick={onBack}>
                     Retour
                 </button>
-                <button type='button' onClick={handleNextStep} disabled={isLoading}>
+                <button
+                    className='onboarding__actions-next'
+                    type='button'
+                    onClick={handleNextStep}
+                    disabled={isLoading}
+                >
                     {isLoading ? "Enregistrement..." : "Continuer"}
                 </button>
             </div>

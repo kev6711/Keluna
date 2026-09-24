@@ -1,0 +1,82 @@
+@use "../../config/variables" as *;
+@use "../../config/mixins" as *;
+
+.onboarding__objective {
+    @include flex-column-center;
+    width: 100%;
+    max-width: 1440px;
+
+    .onboarding__actions {
+        justify-content: space-between;
+    }
+
+    .form__error {
+        color: $danger-color;
+    }
+}
+
+.onboarding__objective-list {
+    @include flex-column-center;
+    gap: $spacing-sm;
+    width: 100%;
+    margin-top: $spacing-md;
+
+    @include tablet {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: $spacing-sm;
+    }
+
+    @include desktop {
+        gap: $spacing-2xl;
+    }
+}
+
+.selection-card.selection-card--objective {
+    @media (max-width: 370px) {
+        grid-template-columns: 18% 82%;
+    }
+
+    @include tablet {
+        height: 250px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30% 30% 1fr;
+        grid-template-areas:
+            "icon"
+            "label"
+            "description";
+    }
+
+    @include desktop {
+        height: 300px;
+    }
+
+    .selection-card__icon {
+        @include tablet {
+            width: 48px;
+            height: 48px;
+        }
+
+        @include desktop {
+            width: 56px;
+            height: 56px;
+        }
+    }
+
+    .selection-card__label,
+    .selection-card__description {
+        @media (max-width: 370px) {
+            font-size: 0.8rem;
+        }
+
+        @include tablet {
+            justify-self: center;
+            font-size: 1rem;
+        }
+
+        @include desktop {
+            justify-self: center;
+            font-size: 1.2rem;
+        }
+    }
+}
